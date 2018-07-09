@@ -1,0 +1,11 @@
+C:\Users\HASELT-Davor.B\source\repos\ConsoleManager.API\ConsoleManager.API\bin\Debug\netcoreapp2.0\ConsoleManager.API.deps.json
+C:\Users\HASELT-Davor.B\source\repos\ConsoleManager.API\ConsoleManager.API\bin\Debug\netcoreapp2.0\ConsoleManager.API.runtimeconfig.json
+C:\Users\HASELT-Davor.B\source\repos\ConsoleManager.API\ConsoleManager.API\bin\Debug\netcoreapp2.0\ConsoleManager.API.runtimeconfig.dev.json
+C:\Users\HASELT-Davor.B\source\repos\ConsoleManager.API\ConsoleManager.API\bin\Debug\netcoreapp2.0\ConsoleManager.API.dll
+C:\Users\HASELT-Davor.B\source\repos\ConsoleManager.API\ConsoleManager.API\bin\Debug\netcoreapp2.0\ConsoleManager.API.pdb
+C:\Users\HASELT-Davor.B\source\repos\ConsoleManager.API\ConsoleManager.API\obj\Debug\netcoreapp2.0\ConsoleManager.API.csprojAssemblyReference.cache
+C:\Users\HASELT-Davor.B\source\repos\ConsoleManager.API\ConsoleManager.API\obj\Debug\netcoreapp2.0\ConsoleManager.API.csproj.CoreCompileInputs.cache
+C:\Users\HASELT-Davor.B\source\repos\ConsoleManager.API\ConsoleManager.API\obj\Debug\netcoreapp2.0\ConsoleManager.API.AssemblyInfoInputs.cache
+C:\Users\HASELT-Davor.B\source\repos\ConsoleManager.API\ConsoleManager.API\obj\Debug\netcoreapp2.0\ConsoleManager.API.AssemblyInfo.cs
+C:\Users\HASELT-Davor.B\source\repos\ConsoleManager.API\ConsoleManager.API\obj\Debug\netcoreapp2.0\ConsoleManager.API.dll
+C:\Users\HASELT-Davor.B\source\repos\ConsoleManager.API\ConsoleManager.API\obj\Debug\netcoreapp2.0\ConsoleManager.API.pdb

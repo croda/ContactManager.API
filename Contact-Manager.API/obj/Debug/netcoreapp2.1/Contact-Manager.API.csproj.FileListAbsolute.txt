@@ -1,0 +1,14 @@
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\bin\Debug\netcoreapp2.1\Contact-Manager.API.deps.json
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\bin\Debug\netcoreapp2.1\Contact-Manager.API.runtimeconfig.json
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\bin\Debug\netcoreapp2.1\Contact-Manager.API.runtimeconfig.dev.json
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\bin\Debug\netcoreapp2.1\Contact-Manager.API.dll
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\bin\Debug\netcoreapp2.1\Contact-Manager.API.pdb
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\obj\Debug\netcoreapp2.1\Contact-Manager.API.csprojAssemblyReference.cache
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\obj\Debug\netcoreapp2.1\Contact-Manager.API.csproj.CoreCompileInputs.cache
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\obj\Debug\netcoreapp2.1\Contact-Manager.API.RazorAssemblyInfo.cache
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\obj\Debug\netcoreapp2.1\Contact-Manager.API.RazorAssemblyInfo.cs
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\obj\Debug\netcoreapp2.1\Contact-Manager.API.AssemblyInfoInputs.cache
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\obj\Debug\netcoreapp2.1\Contact-Manager.API.AssemblyInfo.cs
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\obj\Debug\netcoreapp2.1\Contact-Manager.API.RazorTargetAssemblyInfo.cache
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\obj\Debug\netcoreapp2.1\Contact-Manager.API.dll
+C:\Users\HASELT-Davor.B\source\repos\Contact-Manager.API\Contact-Manager.API\obj\Debug\netcoreapp2.1\Contact-Manager.API.pdb
