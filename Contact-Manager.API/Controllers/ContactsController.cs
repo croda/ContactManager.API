@@ -33,16 +33,18 @@ namespace ConsoleManager.API.Controllers
 
         // GET api/contacts
         [HttpGet]
-        public IActionResult GetAll([FromQuery]int? page, [FromQuery] int? count)
+        public IActionResult GetAll([FromQuery] string searchString, [FromQuery]int? page, [FromQuery] int? count)
         {
+            var ss = searchString ?? "";
             var takePage = page ?? 1;
             var takeCount = count ?? DefaultPageRecordCount; // default = 5
             var contacts = _repo.GetAll()
+                                 .Where(c => c.FirstName.Contains(ss))
                                  .Skip((takePage - 1) * takeCount)
                                  .Take(takeCount)
                                  .ToList();
 
-            var totalItems = _repo.GetAll().Count();
+            var totalItems = _repo.GetAll().Where(c => c.FirstName.Contains(ss)).ToList().Count;
             decimal pageCount = totalItems / (decimal)takeCount;
 
             _response.Items = contacts;
@@ -51,10 +53,6 @@ namespace ConsoleManager.API.Controllers
             _response.TotalCount = totalItems;
             _response.PageCount = (int)Math.Ceiling(pageCount);
 
-            //Debug.WriteLine("Page = " + page);
-            //Debug.WriteLine("pageSize = " + contacts.Count);
-            //Debug.WriteLine("pageCount = " + Math.Ceiling(pageCount));
-            //Debug.WriteLine("totalCount = " + totalItems);
             return new OkObjectResult(_response);
         }
 
@@ -94,7 +92,7 @@ namespace ConsoleManager.API.Controllers
             if (result == null)
                 return new NotFoundObjectResult(result);
 
-            return new OkObjectResult(c);
+            return new OkObjectResult(result);
         }
 
         // DELETE api/values/5

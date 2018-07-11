@@ -16,15 +16,6 @@ namespace ConsoleManager.API.Models
             PhoneNumber = c.PhoneNumber;
         }
 
-        public Contact(string firstName, string lastName, string email, string phoneNumber)
-        {
-            Id = Guid.NewGuid();
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-            PhoneNumber = phoneNumber;
-        }
-
         public Contact()
         {
             Id = Guid.NewGuid();

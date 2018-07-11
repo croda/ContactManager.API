@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "8d19439ef22c432fe18f0eac697c8789fe30c00a"
+    "signature": "809c805605db311b19b8c6d7abb2a2f546c0a348"
   },
   "compilationOptions": {
     "defines": [
@@ -24,6 +24,7 @@
     ".NETCoreApp,Version=v2.1": {
       "Contact-Manager.API/1.0.0": {
         "dependencies": {
+          "Marten": "2.8.2",
           "Microsoft.AspNetCore.All": "2.1.1",
           "Microsoft.NETCore.App": "2.1.0"
         },
@@ -32,6 +33,56 @@
         },
         "compile": {
           "Contact-Manager.API.dll": {}
+        }
+      },
+      "Baseline/1.3.0": {
+        "dependencies": {
+          "System.Collections.Concurrent": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Diagnostics.Process": "4.3.0",
+          "System.Diagnostics.StackTrace": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.IO.FileSystem": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Linq.Expressions": "4.3.0",
+          "System.Reflection.Extensions": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Security.Cryptography.Algorithms": "4.3.0",
+          "System.Text.RegularExpressions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Thread": "4.3.0",
+          "System.Xml.XmlSerializer": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Baseline.dll": {
+            "assemblyVersion": "1.3.0.0",
+            "fileVersion": "1.3.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.3/Baseline.dll": {}
+        }
+      },
+      "Marten/2.8.2": {
+        "dependencies": {
+          "Baseline": "1.3.0",
+          "Newtonsoft.Json": "11.0.2",
+          "Npgsql": "3.2.5",
+          "Remotion.Linq": "2.2.0",
+          "System.Reflection.Emit.Lightweight": "4.3.0",
+          "System.Threading.Tasks.Dataflow": "4.7.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Marten.dll": {
+            "assemblyVersion": "2.8.2.0",
+            "fileVersion": "2.8.2.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Marten.dll": {}
         }
       },
       "Microsoft.NETCore.App/2.1.0": {
@@ -203,6 +254,35 @@
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.1.0"
+        }
+      },
+      "Npgsql/3.2.5": {
+        "dependencies": {
+          "System.Threading.Tasks.Extensions": "4.5.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Npgsql.dll": {
+            "assemblyVersion": "3.2.5.0",
+            "fileVersion": "3.2.5.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Npgsql.dll": {}
+        }
+      },
+      "System.Threading.Tasks.Dataflow/4.7.0": {
+        "dependencies": {
+          "System.Collections": "4.3.0",
+          "System.Collections.Concurrent": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Diagnostics.Tracing": "4.3.0",
+          "System.Dynamic.Runtime": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
         }
       },
       "Libuv/1.10.0": {
@@ -3708,6 +3788,20 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Baseline/1.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OhVYMWHW1Yh0qPsswYSc0csplUrn8yQcjMz9ENh1z5fbm2YIRYrkR1iN0ujiIhfqNAawDo4NCWfeTjock2qsHA==",
+      "path": "baseline/1.3.0",
+      "hashPath": "baseline.1.3.0.nupkg.sha512"
+    },
+    "Marten/2.8.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EnCOgpHSQbO4TpKcu3fv+9DStHOopW1UGNdLH0OOsS4fiqYs5wdHQTh5geDGq/dm4UgvrCeyH+MHS5y5XGe4Hw==",
+      "path": "marten/2.8.2",
+      "hashPath": "marten.2.8.2.nupkg.sha512"
+    },
     "Microsoft.NETCore.App/2.1.0": {
       "type": "package",
       "serviceable": true,
@@ -3756,6 +3850,20 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    },
+    "Npgsql/3.2.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-89z5pHuLuwjkHz/cQLuM/YxlepR/0NKJP+Cvu8z1cAMv7AdKZnN5leQqV6HxIQDR245Xal1w5OH7kDb9hDRupg==",
+      "path": "npgsql/3.2.5",
+      "hashPath": "npgsql.3.2.5.nupkg.sha512"
+    },
+    "System.Threading.Tasks.Dataflow/4.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wcKLDI8tN5KpcMcTQwXfcLHrFdfINIxDBOZS3rE8QqOds/0fRhCkR+IEfQokxT7s/Yluqk+LG/ZqZdQmA/xgCw==",
+      "path": "system.threading.tasks.dataflow/4.7.0",
+      "hashPath": "system.threading.tasks.dataflow.4.7.0.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",
