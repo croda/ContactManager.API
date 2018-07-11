@@ -36,15 +36,16 @@ namespace ConsoleManager.API.Controllers
         public IActionResult GetAll([FromQuery] string searchString, [FromQuery]int? page, [FromQuery] int? count)
         {
             var ss = searchString ?? "";
+            var lowerSearchString = ss.ToLower();
             var takePage = page ?? 1;
             var takeCount = count ?? DefaultPageRecordCount; // default = 5
             var contacts = _repo.GetAll()
-                                 .Where(c => c.FirstName.Contains(ss))
+                                 .Where(c => c.FirstName.ToLower().Contains(lowerSearchString))
                                  .Skip((takePage - 1) * takeCount)
                                  .Take(takeCount)
                                  .ToList();
 
-            var totalItems = _repo.GetAll().Where(c => c.FirstName.Contains(ss)).ToList().Count;
+            var totalItems = _repo.GetAll().Where(c => c.FirstName.Contains(lowerSearchString)).ToList().Count;
             decimal pageCount = totalItems / (decimal)takeCount;
 
             _response.Items = contacts;

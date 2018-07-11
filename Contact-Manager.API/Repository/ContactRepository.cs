@@ -39,7 +39,7 @@ namespace ConsoleManager.API.Repository
             using (var session = store.OpenSession())
             {
                 session.DeleteWhere<Contact>(c => c.Id == id);
-                session.SaveChanges();
+                session.SaveChanges();  
                 return true;
             }
         }
