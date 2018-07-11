@@ -1,4 +1,5 @@
 ﻿using ConsoleManager.API.Models;
+using Marten;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace ConsoleManager.API.Repository
         Contact Get(Guid id);
         Contact Update(Guid id, Contact c);
         bool Delete(Guid id);
+        IDocumentSession OpenSession();
     }
 }

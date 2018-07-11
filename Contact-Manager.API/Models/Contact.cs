@@ -7,24 +7,22 @@ namespace ConsoleManager.API.Models
 {
     public class Contact
     {
-        public Contact(Contact c)
-        {
-            Id = c.Id;
-            FirstName = c.FirstName;
-            LastName = c.LastName;
-            Email = c.Email;
-            PhoneNumber = c.PhoneNumber;
-        }
-
-        public Contact()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public Guid Id { get; set; }
+        public Guid Id { get; private set; } = Guid.NewGuid();
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+
+        public Contact Clone()
+        {
+            return new Contact
+            {
+                Id = Id,
+                Email = Email,
+                FirstName = FirstName,
+                LastName = LastName,
+                PhoneNumber = PhoneNumber
+            };
+        }
     }
 }

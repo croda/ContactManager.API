@@ -24,6 +24,12 @@ namespace ConsoleManager.API.Repository
 
         }
 
+        public IDocumentSession OpenSession()
+        {
+            return store.OpenSession();
+        }
+
+
         public bool Create(Contact c)
         {
             using (var session = store.OpenSession())
@@ -51,7 +57,7 @@ namespace ConsoleManager.API.Repository
                 var contact = session.Query<Contact>().FirstOrDefault(c => c.Id == id);
                 if (contact == null)
                     return null;
-
+                
                 contact.FirstName = con.FirstName;
                 contact.LastName = con.LastName;
                 contact.Email = con.Email;

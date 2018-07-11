@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using ConsoleManager.API.Models;
 using ConsoleManager.API.Repository;
+using Marten;
+using Marten.Linq;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConsoleManager.API.Controllers
@@ -12,83 +14,102 @@ namespace ConsoleManager.API.Controllers
     [Route("api/[controller]")]
     public class ContactsController : Controller
     {
-        public int DefaultPageRecordCount = 5;
         private readonly IContactRepository _repo;
-        private QueryContactsResponse _response;
-
-        public class QueryContactsResponse
-        {
-            public IEnumerable<Contact> Items { get; set; } = Enumerable.Empty<Contact>();
-            public int Page { get; set; }
-            public int PageSize { get; set; }
-            public int PageCount { get; set; }
-            public int TotalCount { get; set; }
-        }
+        private static IDocumentStore _store = DocumentStore
+            .For("host=localhost;port=5432;database=contact-manager-db;password=haseltintern;username=postgres");
 
         public ContactsController(IContactRepository repo)
         {
             _repo = repo;
-            _response = new QueryContactsResponse();
         }
 
         // GET api/contacts
+
         [HttpGet]
-        public IActionResult GetAll([FromQuery] string searchString, [FromQuery]int? page, [FromQuery] int? count)
+        public IActionResult GetAll([FromQuery]QueryContactsRequest request)
         {
-            var ss = searchString ?? "";
-            var lowerSearchString = ss.ToLower();
-            var takePage = page ?? 1;
-            var takeCount = count ?? DefaultPageRecordCount; // default = 5
-            var contacts = _repo.GetAll()
-                                 .Where(c => c.FirstName.ToLower().Contains(lowerSearchString))
-                                 .Skip((takePage - 1) * takeCount)
-                                 .Take(takeCount)
-                                 .ToList();
+            request = request ?? new QueryContactsRequest();
+            var response = new QueryContactsResponse();
 
-            var totalItems = _repo.GetAll().Where(c => c.FirstName.Contains(lowerSearchString)).ToList().Count;
-            decimal pageCount = totalItems / (decimal)takeCount;
+            using (var session = _store.OpenSession())
+            {
+                var contacts = session.Query<Contact>()
+                    .Stats(out QueryStatistics stats)
+                    .Where(c => c.FirstName.ToLower().Contains(request.SearchString))
+                    .Skip(request.SkipCount)
+                    .Take(request.TakeCount)
+                    .ToList();
 
-            _response.Items = contacts;
-            _response.Page = takePage;
-            _response.PageSize = contacts.Count;
-            _response.TotalCount = totalItems;
-            _response.PageCount = (int)Math.Ceiling(pageCount);
+                response.Items = contacts;
+                response.Page = request.Page;
+                response.PageSize = request.PageSize;
+                response.TotalCount = stats.TotalResults;
+            }
 
-            return new OkObjectResult(_response);
+            return new OkObjectResult(response);
         }
+
+        //[HttpGet]
+        //public IActionResult GetAll([FromQuery] string searchString, [FromQuery]int page = 1, [FromQuery] int pageSize = DEFAULT_PAGE_SIZE)
+        //{
+        //    var response = new QueryContactsResponse();
+        //    page = page >= 1 ? page : 1;
+        //    pageSize = pageSize > MAX_PAGE_SIZE ? MAX_PAGE_SIZE : pageSize;
+        //    pageSize = pageSize < 1 ? DEFAULT_PAGE_SIZE : pageSize;
+
+        //    using (var session = _store.OpenSession())
+        //    {
+        //        searchString = searchString?.ToLowerInvariant() ?? "";
+        //        var skipCount = (page - 1) * pageSize;
+
+        //        var contacts = session.Query<Contact>()
+        //            .Stats(out QueryStatistics stats)
+        //            .Where(c => c.FirstName.ToLower().Contains(searchString))
+        //            .Skip(skipCount)
+        //            .Take(pageSize)
+        //            .ToList();
+
+        //        response.Items = contacts;
+        //        response.Page = page;
+        //        response.PageSize = pageSize;
+        //        response.TotalCount = stats.TotalResults;
+        //    }
+
+        //    return new OkObjectResult(response);
+        //}
 
         // GET api/values/5
         [HttpGet("{id}")]
         public IActionResult Get(Guid id)
         {
-            var c = _repo.Get(id);
-            if (c == null)
-                return new NotFoundObjectResult(c);
-            return new OkObjectResult(c);
+            var contact = _repo.Get(id);
+            if (contact == null)
+                return new NotFoundObjectResult(contact);
+            return new OkObjectResult(contact);
         }
 
         // POST api/values
         [HttpPost]
-        public IActionResult Create([FromBody]Contact c)
+        public IActionResult Create([FromBody]Contact contact)
         {
             if (!ModelState.IsValid)
                 return new BadRequestResult();
 
-            var result = _repo.Create(c);
-            return new CreatedAtRouteResult(nameof(c.Id), c);
+            var result = _repo.Create(contact);
+            return new CreatedAtRouteResult(nameof(contact.Id), contact);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, [FromBody]Contact c)
+        public IActionResult Update(Guid id, [FromBody]Contact contact)
         {
-            if (c == null)
+            if (contact == null)
                 return BadRequest();
 
             if (!ModelState.IsValid)
                 return new BadRequestObjectResult(ModelState);
 
-            var result = _repo.Update(id, c);
+            var result = _repo.Update(id, contact);
 
             if (result == null)
                 return new NotFoundObjectResult(result);
@@ -100,12 +121,62 @@ namespace ConsoleManager.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            var result = _repo.Delete(id);
+            var isDeleted = _repo.Delete(id);
 
-            if (result == null)
+            // todo
+            if (isDeleted == false)
                 return new BadRequestResult();
 
             return new NoContentResult();
+        }
+
+        public class QueryContactsRequest
+        {
+            private const int DEFAULT_PAGE_SIZE = 25;
+            private const int MAX_PAGE_SIZE = 100;
+
+            private string _searchString = "";
+            public string SearchString
+            {
+                get => _searchString;
+                set => _searchString = value?.ToLowerInvariant() ?? "";
+            }
+
+            private int _page = 1;
+            public int Page
+            {
+                get => _page;
+                set => _page = value < 1 ? 1 : value;
+            }
+
+            private int _pageSize = DEFAULT_PAGE_SIZE;
+
+            public int PageSize
+            {
+                get => _pageSize;
+                set
+                {
+                    if (value > MAX_PAGE_SIZE)
+                        _pageSize = MAX_PAGE_SIZE;
+                    else if (value < 1)
+                        _pageSize = DEFAULT_PAGE_SIZE;
+                    else
+                        _pageSize = value;
+                }
+            }
+
+            internal int SkipCount => (Page - 1) * PageSize;
+            internal int TakeCount => PageSize;
+        }
+
+        public class QueryContactsResponse
+        {
+            public IEnumerable<Contact> Items { get; set; } = Enumerable.Empty<Contact>();
+            public int Page { get; set; }
+            public int PageSize { get; set; }
+            public long TotalCount { get; set; }
+
+            public int PageCount => (int)Math.Ceiling(TotalCount / (decimal)PageSize);
         }
     }
 }
